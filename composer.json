@@ -1,0 +1,17 @@
+{
+    "name": "recipe finder",
+    "description": "a recipe finder",
+    "license": "MIT",
+    "require": {
+        "goodby/csv": "*"
+    },
+    "autoload": {
+        "classmap": [
+            "app/models"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "stable"
+}
