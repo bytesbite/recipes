@@ -5,6 +5,9 @@
     "require": {
         "goodby/csv": "*"
     },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
     "autoload": {
         "classmap": [
             "app/models"
