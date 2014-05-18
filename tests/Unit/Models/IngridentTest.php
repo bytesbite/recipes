@@ -9,7 +9,7 @@ class IngridentTest extends \PHPUnit_Framework_TestCase
     public function testCanInstantiate()
     {
         // something about PHP forward-slashe and dates is very confusing... @TODO
-        $date = new \DateTime('25-12-2014');
+        $date = new \ExpressiveDate('25-12-2014');
         $i = new Ingrident('bread', 10, Ingrident::SLICES, $date);
 
         $this->assertNotNull($i);
@@ -19,4 +19,17 @@ class IngridentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($i->useBy, $date);
     }
 
+    public function testHasExpired_true()
+    {
+        $date = new \ExpressiveDate();
+        $i = new Ingrident('bread', 10, Ingrident::SLICES, $date);
+        $this->assertTrue($i->hasExpired());
+    }
+
+    public function testHasExpired_false()
+    {
+        $date = new \ExpressiveDate('25-12-2014');
+        $i = new Ingrident('bread', 10, Ingrident::SLICES, $date);
+        $this->assertFalse($i->hasExpired());
+    }
 }

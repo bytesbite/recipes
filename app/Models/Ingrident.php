@@ -14,12 +14,25 @@ class Ingrident
     private $unit;
     private $useBy;
 
-    public function __construct($name, $amount, $unit, \Datetime $useBy)
+    public function __construct($name, $amount, $unit, \ExpressiveDate $useBy)
     {
         $this->name = $name;
         $this->amount = $amount;
         $this->unit = $unit;
         $this->useBy = $useBy;
+    }
+
+    /**
+     * true if ingrident useBy date is in the future, false otherwise
+     * @return boolean
+     */
+    public function hasExpired()
+    {
+        $today = new \ExpressiveDate();
+        return
+            $this->useBy->getDifferenceInYears($today) == 0 &&
+            $this->useBy->getDifferenceInMonths($today) == 0 &&
+            $this->useBy->getDifferenceInDays($today) == 0;
     }
 
     public function __get($property)

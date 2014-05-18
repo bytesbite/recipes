@@ -3,14 +3,16 @@
     "description": "a recipe finder",
     "license": "MIT",
     "require": {
-        "goodby/csv": "*"
+        "league/csv": "5.*",
+        "jasonlewis/expressive-date": "1.0.*"
     },
     "require-dev": {
         "phpunit/phpunit": "*"
     },
     "autoload": {
         "classmap": [
-            "app/models"
+            "app/Models",
+            "app/Controllers"
         ]
     },
     "config": {

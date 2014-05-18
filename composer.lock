@@ -3,36 +3,78 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2b942157e85ba8563b1445835b35952d",
+    "hash": "760b739ff875d61f4fdfdafed46479d7",
     "packages": [
         {
-            "name": "goodby/csv",
-            "version": "1.1.0",
+            "name": "jasonlewis/expressive-date",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/goodby/csv.git",
-                "reference": "da672802985d196cae767da29b11618a676496b0"
+                "url": "https://github.com/jasonlewis/expressive-date.git",
+                "reference": "1215d093fd3fe222e26629e0bc3885968ba88a01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/goodby/csv/zipball/da672802985d196cae767da29b11618a676496b0",
-                "reference": "da672802985d196cae767da29b11618a676496b0",
+                "url": "https://api.github.com/repos/jasonlewis/expressive-date/zipball/1215d093fd3fe222e26629e0bc3885968ba88a01",
+                "reference": "1215d093fd3fe222e26629e0bc3885968ba88a01",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Jason Lewis",
+                    "email": "jason.lewis1991@gmail.com",
+                    "homepage": "http://jasonlewis.me",
+                    "role": "Creator"
+                }
+            ],
+            "description": "A fluent extension to PHPs DateTime class.",
+            "keywords": [
+                "date",
+                "time"
+            ],
+            "time": "2013-05-17 23:22:57"
+        },
+        {
+            "name": "league/csv",
+            "version": "5.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/csv.git",
+                "reference": "35ed8f94c6e9a381c27dddf9bc0349b045943aea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/csv/zipball/35ed8f94c6e9a381c27dddf9bc0349b045943aea",
+                "reference": "35ed8f94c6e9a381c27dddf9bc0349b045943aea",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
-                "php": ">=5.3.2"
+                "php": ">=5.4.0"
+            },
+            "replace": {
+                "bakame/csv": "*"
             },
             "require-dev": {
-                "mikey179/vfsstream": ">=1.1.0",
-                "mockery/mockery": ">=0.7.2",
-                "phpunit/phpunit": "3.7.*",
-                "suin/php-expose": ">=1.0"
+                "phpunit/phpunit": "*"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Goodby\\CSV": "src/"
+                "psr-4": {
+                    "League\\Csv\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -41,26 +83,22 @@
             ],
             "authors": [
                 {
-                    "name": "suin",
-                    "email": "suinyeze@gmail.com",
-                    "homepage": "https://www.facebook.com/suinyeze",
-                    "role": "Developer, Renaming Specialist"
-                },
-                {
-                    "name": "reoring",
-                    "email": "mori.reo@gmail.com",
-                    "homepage": "https://www.facebook.com/reoring",
+                    "name": "Ignace Nyamagana Butera",
+                    "email": "nyamsprod@gmail.com",
+                    "homepage": "https://github.com/nyamsprod/",
                     "role": "Developer"
                 }
             ],
-            "description": "CSV import/export library",
-            "homepage": "https://github.com/goodby/csv",
+            "description": "Csv data manipulation made easy in PHP 5.4+",
             "keywords": [
                 "csv",
                 "export",
-                "import"
+                "filter",
+                "import",
+                "read",
+                "write"
             ],
-            "time": "2013-11-22 19:10:34"
+            "time": "2014-04-17 09:24:36"
         }
     ],
     "packages-dev": [
