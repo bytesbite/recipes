@@ -6,8 +6,22 @@ require './vendor/autoload.php';
 
 // parse files
 $parser = new \Controllers\Parser();
-$parser->parseIngredientsCsv(__DIR__.'/tests/fixtures/input.csv');
-$parser->parseRecipesJson(__DIR__.'/tests/fixtures/recipes.json');
+try {
+    $parser->parseIngredientsCsv(__DIR__.'/tests/fixtures/input.csv');
+} catch (\Models\InvalidIngredientException $e) {
+    echo "bad data in ingredients csv data\n";
+    return;
+}
+
+try {
+    $parser->parseRecipesJson(__DIR__.'/tests/fixtures/recipes.json');
+} catch (\Controllers\BadJsonException $e) {
+    echo "json input is malformated\n";
+    return;
+} catch (\Models\InvalidIngredientException $e) {
+    echo "bad ingredients data in recipes json\n";
+    return;
+}
 
 $ingredients = $parser->getIngredients();
 $recipes = $parser->getRecipes();

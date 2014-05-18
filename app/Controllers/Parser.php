@@ -30,8 +30,7 @@ class Parser
 
         foreach ($data as $d) {
             $row = (object)$d;
-            $date = new \ExpressiveDate(str_replace('/', '-', $row->date));
-            $this->ingredients[$row->item] = new \Models\Ingredient($row->item, $row->amount, $row->unit, $date);
+            $this->ingredients[$row->item] = new \Models\Ingredient($row->item, $row->amount, $row->unit, $row->date);
         }
     }
 
@@ -42,6 +41,10 @@ class Parser
         }
 
         $json = json_decode(file_get_contents($file));
+        if ($json === FALSE or $json === NULL) {
+            throw new BadJsonException();
+        }
+
         foreach($json as $r) {
             $recipe = new \Models\Recipe($r->name);
             array_walk($r->ingredients, function($i) use($recipe) {
@@ -52,3 +55,6 @@ class Parser
         }
     }
 }
+
+class BadJsonException extends \Exception {}
+

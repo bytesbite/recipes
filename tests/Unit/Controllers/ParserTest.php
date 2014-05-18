@@ -11,6 +11,15 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->parser = new \Controllers\Parser();
     }
 
+    /**
+     * @expectedException \Controllers\BadJsonException
+     */
+    public function testBadJsonInput()
+    {
+        $filename = dirname(dirname(__DIR__)).'/fixtures/bad.json';
+        $this->parser->parseRecipesJson($filename);
+    }
+
     public function testParseIngredientsCsv()
     {
         $filename = dirname(dirname(__DIR__)).'/fixtures/input.csv';

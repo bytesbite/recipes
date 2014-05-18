@@ -14,12 +14,19 @@ class Ingredient
     private $unit;
     private $useBy;
 
-    public function __construct($name, $amount, $unit, \ExpressiveDate $useBy = null)
+    public function __construct($name, $amount, $unit, $useBy = null)
     {
         $this->name = $name;
         $this->amount = $amount;
         $this->unit = $unit;
-        $this->useBy = $useBy;
+
+        if (!is_null($useBy) && preg_match('/^(\d{1,2})\/(\d{1,2})\/(\d{4})/', $useBy)) {
+            $this->useBy = strtotime(str_replace('/', '-', $useBy));
+        }
+
+        if (!$this->isAValidIngrident()) {
+            throw new InvalidIngredientException();
+        }
     }
 
     /**
@@ -28,16 +35,7 @@ class Ingredient
      */
     public function hasExpired()
     {
-        $today = new \ExpressiveDate();
-        return
-            $this->useBy->getDifferenceInYears($today) == 0 &&
-            $this->useBy->getDifferenceInMonths($today) == 0 &&
-            $this->useBy->getDifferenceInDays($today) == 0;
-    }
-
-    public function getUsebyTimestamp()
-    {
-        return $this->useBy->getTimestamp();
+        return $this->useBy <= time();
     }
 
     public function isUsable($ingrident)
@@ -46,6 +44,23 @@ class Ingredient
             $this->amount >= $ingrident->amount &&
             $this->unit == $ingrident->unit &&
             !$this->hasExpired();
+    }
+
+    private function isAValidIngrident()
+    {
+        $rules = array(
+            'name' => '/^(.*)$/',
+            'amount' => '/^(\d+)$/',
+            'unit' => '/^(of|ml|slices|grams)$/i',
+        );
+
+        foreach ($rules as $key => $rule) {
+            if (!preg_match($rules[$key], $this->$key)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function __get($property)
@@ -59,3 +74,5 @@ class Ingredient
             $this->$property = $value;
     }
 }
+
+class InvalidIngredientException extends \Exception {}

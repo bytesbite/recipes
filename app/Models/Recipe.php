@@ -35,9 +35,9 @@ class Recipe
             // else
             $fridgeIngredient = $ingredients[$name];
             if ($fridgeIngredient->isUsable($i) &&
-                ($this->earliestExpiryDate == 0 || $fridgeIngredient->getUsebyTimestamp() < $this->earliestExpiryDate))
+                ($this->earliestExpiryDate == 0 || $fridgeIngredient->useBy < $this->earliestExpiryDate))
             {
-                $this->earliestExpiryDate = $fridgeIngredient->getUsebyTimestamp();
+                $this->earliestExpiryDate = $fridgeIngredient->useBy;
             }
         }
     }
