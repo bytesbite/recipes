@@ -33,7 +33,7 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($i->hasExpired());
     }
 
-    public function testGetTimestamp()
+    public function testGetUsebyTimestamp()
     {
         $date = new \ExpressiveDate();
         $i = new Ingredient('bread', 10, Ingredient::SLICES, $date);
@@ -44,7 +44,7 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
     {
         $date = new \ExpressiveDate('25-12-2014');
         $i = new Ingredient('bread', 10, Ingredient::SLICES, $date);
-        $compare = new Ingredient('bread', 10, Ingredient::SLICES);
+        $compare = new Ingredient('bread', 4, Ingredient::SLICES);
 
         $this->assertTrue($i->isUsable($compare));
     }

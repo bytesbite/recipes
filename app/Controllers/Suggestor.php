@@ -16,16 +16,22 @@ class Suggestor
         $this->recipes = $recipes;
     }
 
-    public function run()
+    public function suggestRecipe()
     {
         if (empty($this->recipes) || empty($this->ingredients)) {
             return "Order Takeout";
         }
 
-        $result = array();
+        $results = array();
         foreach ($this->recipes as $r) {
+            $r->analyseFridge($this->ingredients);
 
+            if ($r->canBeCooked) {
+                $results[$r->name] = $r->earliestExpiryDate;
+            }
         }
-        return $result;
+
+        asort($results);
+        return key($results);
     }
 }

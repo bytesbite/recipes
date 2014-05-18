@@ -16,6 +16,8 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
         $r = new \Models\Recipe($this->recipes[0]->name);
         $this->assertEquals($r->name, $this->recipes[0]->name);
         $this->assertEmpty($r->ingredients);
+        $this->assertTrue($r->canBeCooked);
+        $this->assertEquals($r->earliestExpiryDate, 0);
     }
 
     public function testAddIngredient()
@@ -27,10 +29,5 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->assertEquals(count($r->ingredients), count($this->recipes[0]->ingredients));
-    }
-
-    public function testCanbeCooked()
-    {
-
     }
 }

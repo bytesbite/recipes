@@ -43,7 +43,7 @@ class Ingredient
     public function isUsable($ingrident)
     {
         return $this->name == $ingrident->name &&
-            $this->amount <= $ingrident->amount &&
+            $this->amount >= $ingrident->amount &&
             $this->unit == $ingrident->unit &&
             !$this->hasExpired();
     }
