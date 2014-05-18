@@ -11,7 +11,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->parser = new \Controllers\Parser();
     }
 
-    public function testParseIngridentsCsv()
+    public function testParseIngredientsCsv()
     {
         $filename = dirname(dirname(__DIR__)).'/fixtures/input.csv';
         $rowCount = count(file($filename));
@@ -23,18 +23,18 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(count($ingredients), $rowCount);
 
         foreach ($ingredients as $name => $ingrident) {
-            $this->assertTrue($ingrident instanceof \Models\Ingrident);
+            $this->assertTrue($ingrident instanceof \Models\Ingredient);
             $this->assertEquals($name, $ingrident->name);
         }
     }
 
-    public function testParseIngridentsCsv_ReturnsEmpty()
+    public function testParseIngredientsCsv_ReturnsEmpty()
     {
         $this->parser->parseIngredientsCsv('');
         $this->assertEmpty($this->parser->getIngredients());
     }
 
-    public function testParseIngridentsJson_ReturnsEmpty()
+    public function testParseIngredientsJson_ReturnsEmpty()
     {
         $this->parser->parseRecipesJson('');
         $this->assertEmpty($this->parser->getRecipes());
@@ -51,7 +51,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($recipes[0]->name, 'grilledcheeseontoast');
 
         foreach ($recipes[0]->ingredients as $name => $i) {
-            $this->assertTrue($i instanceof \Models\Ingrident);
+            $this->assertTrue($i instanceof \Models\Ingredient);
+            $this->assertEquals($name, $i->name);
         }
     }
 }

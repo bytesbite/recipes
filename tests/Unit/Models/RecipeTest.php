@@ -13,8 +13,24 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
 
     public function testInstantiate()
     {
-        $r = new \Models\Recipe($this->recipes[0]->name, $this->recipes[0]->ingredients);
+        $r = new \Models\Recipe($this->recipes[0]->name);
         $this->assertEquals($r->name, $this->recipes[0]->name);
-        $this->assertEquals($r->ingredients, $this->recipes[0]->ingredients);
+        $this->assertEmpty($r->ingredients);
+    }
+
+    public function testAddIngredient()
+    {
+        $r = new \Models\Recipe($this->recipes[0]->name);
+
+        foreach ($this->recipes[0]->ingredients as $i) {
+            $r->addIngredient(new \Models\Ingredient($i->item, $i->amount, $i->unit));
+        }
+
+        $this->assertEquals(count($r->ingredients), count($this->recipes[0]->ingredients));
+    }
+
+    public function testCanbeCooked()
+    {
+
     }
 }

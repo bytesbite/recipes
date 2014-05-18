@@ -27,21 +27,12 @@ class Parser
 
         $csv = new Reader($file);
         $data = $csv->fetchAssoc(array('item', 'amount', 'unit', 'date'));
-        $this->ingredients = $this->constructIngridents($data);
-    }
-
-    protected function constructIngridents($data)
-    {
-        $ingridents = array();
 
         foreach ($data as $d) {
             $row = (object)$d;
-            $date = (isset($row->date)) ? new \ExpressiveDate(str_replace('/', '-', $row->date)) : null;
-
-            $ingredients[$row->item] = new \Models\Ingrident($row->item, $row->amount, $row->unit, $date);
+            $date = new \ExpressiveDate(str_replace('/', '-', $row->date));
+            $this->ingredients[$row->item] = new \Models\Ingredient($row->item, $row->amount, $row->unit, $date);
         }
-
-        return $ingredients;
     }
 
     public function parseRecipesJson($file)
@@ -52,7 +43,12 @@ class Parser
 
         $json = json_decode(file_get_contents($file));
         foreach($json as $r) {
-            $this->recipes[] = new \Models\Recipe($r->name, $this->constructIngridents($r->ingredients));
+            $recipe = new \Models\Recipe($r->name);
+            array_walk($r->ingredients, function($i) use($recipe) {
+                $row = (object)$i;
+                $recipe->addIngredient(new \Models\Ingredient($row->item, $row->amount, $row->unit, null));
+            });
+            $this->recipes[] = $recipe;
         }
     }
 }

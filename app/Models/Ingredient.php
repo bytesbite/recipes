@@ -2,7 +2,7 @@
 
 namespace Models;
 
-class Ingrident
+class Ingredient
 {
     const OF = 'of';
     const GRAMS = 'grams';

@@ -2,49 +2,49 @@
 
 namespace Unit\Models;
 
-use \Models\Ingrident;
+use \Models\Ingredient;
 
-class IngridentTest extends \PHPUnit_Framework_TestCase
+class IngredientTest extends \PHPUnit_Framework_TestCase
 {
     public function testCanInstantiate()
     {
         // something about PHP forward-slashe and dates is very confusing... @TODO
         $date = new \ExpressiveDate('25-12-2014');
-        $i = new Ingrident('bread', 10, Ingrident::SLICES, $date);
+        $i = new Ingredient('bread', 10, Ingredient::SLICES, $date);
 
         $this->assertNotNull($i);
         $this->assertEquals($i->name, 'bread');
         $this->assertEquals($i->amount, 10);
-        $this->assertEquals($i->unit, Ingrident::SLICES);
+        $this->assertEquals($i->unit, Ingredient::SLICES);
         $this->assertEquals($i->useBy, $date);
     }
 
     public function testHasExpired_true()
     {
         $date = new \ExpressiveDate();
-        $i = new Ingrident('bread', 10, Ingrident::SLICES, $date);
+        $i = new Ingredient('bread', 10, Ingredient::SLICES, $date);
         $this->assertTrue($i->hasExpired());
     }
 
     public function testHasExpired_false()
     {
         $date = new \ExpressiveDate('25-12-2014');
-        $i = new Ingrident('bread', 10, Ingrident::SLICES, $date);
+        $i = new Ingredient('bread', 10, Ingredient::SLICES, $date);
         $this->assertFalse($i->hasExpired());
     }
 
     public function testGetTimestamp()
     {
         $date = new \ExpressiveDate();
-        $i = new Ingrident('bread', 10, Ingrident::SLICES, $date);
+        $i = new Ingredient('bread', 10, Ingredient::SLICES, $date);
         $this->assertEquals($i->getUsebyTimestamp(), $date->getTimestamp());
     }
 
     public function testIsUsable()
     {
         $date = new \ExpressiveDate('25-12-2014');
-        $i = new Ingrident('bread', 10, Ingrident::SLICES, $date);
-        $compare = new Ingrident('bread', 10, Ingrident::SLICES);
+        $i = new Ingredient('bread', 10, Ingredient::SLICES, $date);
+        $compare = new Ingredient('bread', 10, Ingredient::SLICES);
 
         $this->assertTrue($i->isUsable($compare));
     }

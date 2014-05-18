@@ -7,10 +7,25 @@ class Recipe
     private $name;
     private $ingredients = array();
 
-    public function __construct($name, Array $ingredients)
+    public function __construct($name)
     {
         $this->name = $name;
-        $this->ingredients = $ingredients;
+    }
+
+    public function addIngredient(\Models\Ingredient $ingredient)
+    {
+        $this->ingredients[$ingredient->name] = $ingredient;
+    }
+
+    public function canBeCooked($ingridents)
+    {
+        foreach ($ingredients as $i) {
+            if (isset($this->ingredients[$i->name])) {
+
+            }
+        }
+
+        return false;
     }
 
     public function __get($property)
