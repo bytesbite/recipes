@@ -14,7 +14,7 @@ class Ingrident
     private $unit;
     private $useBy;
 
-    public function __construct($name, $amount, $unit, \ExpressiveDate $useBy)
+    public function __construct($name, $amount, $unit, \ExpressiveDate $useBy = null)
     {
         $this->name = $name;
         $this->amount = $amount;
@@ -33,6 +33,19 @@ class Ingrident
             $this->useBy->getDifferenceInYears($today) == 0 &&
             $this->useBy->getDifferenceInMonths($today) == 0 &&
             $this->useBy->getDifferenceInDays($today) == 0;
+    }
+
+    public function getUsebyTimestamp()
+    {
+        return $this->useBy->getTimestamp();
+    }
+
+    public function isUsable($ingrident)
+    {
+        return $this->name == $ingrident->name &&
+            $this->amount <= $ingrident->amount &&
+            $this->unit == $ingrident->unit &&
+            !$this->hasExpired();
     }
 
     public function __get($property)

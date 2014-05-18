@@ -32,4 +32,20 @@ class IngridentTest extends \PHPUnit_Framework_TestCase
         $i = new Ingrident('bread', 10, Ingrident::SLICES, $date);
         $this->assertFalse($i->hasExpired());
     }
+
+    public function testGetTimestamp()
+    {
+        $date = new \ExpressiveDate();
+        $i = new Ingrident('bread', 10, Ingrident::SLICES, $date);
+        $this->assertEquals($i->getUsebyTimestamp(), $date->getTimestamp());
+    }
+
+    public function testIsUsable()
+    {
+        $date = new \ExpressiveDate('25-12-2014');
+        $i = new Ingrident('bread', 10, Ingrident::SLICES, $date);
+        $compare = new Ingrident('bread', 10, Ingrident::SLICES);
+
+        $this->assertTrue($i->isUsable($compare));
+    }
 }
