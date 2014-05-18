@@ -21,6 +21,11 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotEmpty($ingredients);
         $this->assertEquals(count($ingredients), $rowCount);
+
+        foreach ($ingredients as $name => $ingrident) {
+            $this->assertTrue($ingrident instanceof \Models\Ingrident);
+            $this->assertEquals($name, $ingrident->name);
+        }
     }
 
     public function testParseIngridentsCsv_ReturnsEmpty()
@@ -29,4 +34,24 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($this->parser->getIngredients());
     }
 
+    public function testParseIngridentsJson_ReturnsEmpty()
+    {
+        $this->parser->parseRecipesJson('');
+        $this->assertEmpty($this->parser->getRecipes());
+    }
+
+    public function testParseRecipesJson()
+    {
+        $filename = dirname(dirname(__DIR__)).'/fixtures/recipes.json';
+
+        $this->parser->parseRecipesJson($filename);
+        $recipes = $this->parser->getRecipes();
+
+        $this->assertNotEmpty($recipes);
+        $this->assertEquals($recipes[0]->name, 'grilledcheeseontoast');
+
+        foreach ($recipes[0]->ingredients as $name => $i) {
+            $this->assertTrue($i instanceof \Models\Ingrident);
+        }
+    }
 }
