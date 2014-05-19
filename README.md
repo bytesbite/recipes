@@ -17,6 +17,12 @@ A recipe finder application. This application is a console application which per
 - input data validation
 - need to refactor analyseFridge into suggestor and then wrap integration tests around the Suggestor
 
+## notes
+I had planned to make this a web application with the following changes
+- consider using a database to store fridge ingredients and receipes
+- add background job processing using php-resque to parse CSV and JSON files
+- use Laravel or Slim for view management and restful routes
+
 ## instructions
 
 run the following commands
