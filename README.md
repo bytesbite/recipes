@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bytesbite/recipes.svg?branch=master)](https://travis-ci.org/bytesbite/recipes)
+
 ## recipes
 
 A recipe finder application. This application is a console application which performs the following tasks.
@@ -25,7 +27,7 @@ I had planned to make this a web application with the following changes
 
 ## instructions
 
-run the following commands
+run the following commands after cloning the repository
 
 ```
 composer install
