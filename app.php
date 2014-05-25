@@ -27,4 +27,5 @@ $ingredients = $parser->getIngredients();
 $recipes = $parser->getRecipes();
 
 $suggestor = new \Controllers\Suggestor($ingredients, $recipes);
+$suggestor->analyseFridge();
 echo $suggestor->suggestRecipe()."\n";

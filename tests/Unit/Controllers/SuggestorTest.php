@@ -9,4 +9,9 @@ class SuggestorTest extends \PHPUnit_Framework_TestCase
         $s = new \Controllers\Suggestor();
         $this->assertEquals($s->suggestRecipe(), 'Order Takeout');
     }
+
+    public function testAnalyseFridge()
+    {
+
+    }
 }
