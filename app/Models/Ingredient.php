@@ -14,6 +14,16 @@ class Ingredient
     private $unit;
     private $useBy;
 
+    /**
+     * Construct an ingrident class.
+     *
+     * @param String  $name    name of ingredient
+     * @param Integer $amount  amount of this we have in the fridge
+     * @param String  $unit    the unit this ingredient is measured in
+     * @param String  $useBy   the date this ingredient expires, must be dd/mm/yyyy
+     *
+     * @throws InvalidIngredientException if isAValidIngrident returns false
+     */
     public function __construct($name, $amount, $unit, $useBy = null)
     {
         $this->name = $name;
@@ -38,6 +48,15 @@ class Ingredient
         return $this->useBy <= time();
     }
 
+    /**
+     * Compare a recipe ingredient and one in the fridge and see if they match
+     *
+     * @todo rename this method, isUsable is a bad name
+     *
+     * @param  \Models\Ingredient  $ingrident
+     * @return boolean  true if ingredient in fridge matches ignredient in recipe and hasn't expired,
+     *                       false otherwise
+     */
     public function isUsable($ingrident)
     {
         return $this->name == $ingrident->name &&
@@ -46,16 +65,22 @@ class Ingredient
             !$this->hasExpired();
     }
 
-    private function isAValidIngrident()
+    /**
+     * @return boolean true if name, amount and unit are not empty and
+     *                      name is one or more words and
+     *                      amount is a number
+     *                      unit is one of "of" or "ml" or "slices" or "grams"
+     */
+    public function isAValidIngrident()
     {
         $rules = array(
-            'name' => '/^(.*)$/',
+            'name' => '/(\w+)/',
             'amount' => '/^(\d+)$/',
             'unit' => '/^(of|ml|slices|grams)$/i',
         );
 
         foreach ($rules as $key => $rule) {
-            if (!preg_match($rules[$key], $this->$key)) {
+            if (!empty($this->$key) && !preg_match($rules[$key], $this->$key)) {
                 return false;
             }
         }
@@ -76,3 +101,5 @@ class Ingredient
 }
 
 class InvalidIngredientException extends \Exception {}
+
+class InvalidDateFormatException extends \Exception {}

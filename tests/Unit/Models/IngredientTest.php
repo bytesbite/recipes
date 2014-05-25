@@ -17,6 +17,12 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($i->useBy, strtotime('25-12-2014'));
     }
 
+    public function testConstructorRejectsDate()
+    {
+         $i = new Ingredient('bread', 10, Ingredient::SLICES, '25-12-2014');
+         $this->assertNull($i->useBy);
+    }
+
     /**
      * @expectedException \Models\InvalidIngredientException
      */
@@ -45,5 +51,29 @@ class IngredientTest extends \PHPUnit_Framework_TestCase
         $compare = new Ingredient('bread', 4, Ingredient::SLICES);
 
         $this->assertTrue($i->isUsable($compare));
+    }
+
+    public function testIsAValidIngrident()
+    {
+        $i = new Ingredient('bread', 10, Ingredient::SLICES, '25/12/2014');
+        $this->assertTrue($i->isAValidIngrident());
+    }
+
+    /**
+     * @expectedException \Models\InvalidIngredientException
+     */
+    public function testIsAValidIngrident_falseExpectException()
+    {
+        $i = new Ingredient('bread', '1o', Ingredient::SLICES, '25/12/2014');
+        $this->assertFalse($i->isAValidIngrident());
+
+        $i = new Ingredient('#$^#^', 10, Ingredient::SLICES, '25/12/2014');
+        $this->assertFalse($i->isAValidIngrident());
+
+        $i = new Ingredient('bread', '10', Ingredient::SLICES, '25/12/2014');
+        $this->assertFalse($i->isAValidIngrident());
+
+        $i = new Ingredient('bread', '10', 'kilos', '25/12/2014');
+        $this->assertFalse($i->isAValidIngrident());
     }
 }
