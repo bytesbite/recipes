@@ -14,34 +14,16 @@ class Recipe
         $this->name = $name;
     }
 
+    /**
+     * add ingredient instance to this recipe
+     * @param ModelsIngredient $ingredient
+     */
     public function addIngredient(\Models\Ingredient $ingredient)
     {
         $this->ingredients[$ingredient->name] = $ingredient;
     }
 
-    public function analyseFridge($ingredients)
-    {
-        $this->earliestExpiryDate = 0;
-        $this->canBeCooked = true;
-
-        foreach ($this->ingredients as $name => $i) {
-            // if it's not in the fridge, we can't cook it
-            if (!isset($ingredients[$name])) {
-                $this->canBeCooked = false;
-                $this->earliestExpiryDate = 0;
-                return;
-            }
-
-            // else
-            $fridgeIngredient = $ingredients[$name];
-            if ($fridgeIngredient->isUsable($i) &&
-                ($this->earliestExpiryDate == 0 || $fridgeIngredient->useBy < $this->earliestExpiryDate))
-            {
-                $this->earliestExpiryDate = $fridgeIngredient->useBy;
-            }
-        }
-    }
-
+    // magic methods
     public function __get($property)
     {
         return (property_exists($this, $property)) ? $this->$property : null;

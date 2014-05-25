@@ -30,4 +30,14 @@ class RecipeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(count($r->ingredients), count($this->recipes[0]->ingredients));
     }
+
+    /**
+     * @todo expecting a generic exception is hacky, need to find out what PHP throws
+     * @expectedException \Exception
+     */
+    public function testAddIngredient_EnforcesType()
+    {
+        $r = new \Models\Recipe('foo');
+        $r->addIngredient(new \stdClass());
+    }
 }
